@@ -11,6 +11,5 @@ class DynamicFieldInline(admin.TabularInline):
 class DynamicFormAdmin(admin.ModelAdmin):
     inlines = [DynamicFieldInline]
 
-
 admin.site.register(models.DynamicForm, DynamicFormAdmin)
 

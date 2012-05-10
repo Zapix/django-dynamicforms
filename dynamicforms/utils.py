@@ -1,5 +1,10 @@
 # -*- coding: utf-8 -*-
+import sys
+
 from django.utils.translation import ugettext_lazy as _
+
+from dynamicforms.exceptions import FieldDidNotRegister
+
 
 def build_available_field_list():
     '''
@@ -25,3 +30,25 @@ def get_choices_field_list():
     return [(path, name)
             for path, name, defaults in build_available_field_list()]
 
+
+def get_field_class(field_path):
+    '''
+    Imports field class from field_path and returns class
+    '''
+    module_path = '.'.join(field_path.split('.')[:-1])
+    field_class_name = field_path.split('.')[-1]
+
+    __import__(module_path)
+    module = sys.modules[module_path]
+    return getattr(module, field_class_name, None)
+
+def get_field_defaults(field_path):
+    '''
+    Returns defaults by field_path
+    else raise exception no field with this path
+    '''
+    fields_info = dict(build_available_field_list())
+    try:
+        return fields_info[field_path][2]
+    except KeyError:
+        raise FieldDidNotRegister(field_path)

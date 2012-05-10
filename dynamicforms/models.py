@@ -38,3 +38,10 @@ class DynamicField(models.Model):
                      help_text=_('Only in English and in lowercase'))
     label = models.CharField(max_length=250, verbose_name=_('Label'))
 
+    class Meta:
+        verbose_name = _('Dynamic field')
+        verbose_name_plural = _('Dynamic fields')
+
+    def __unicode__(self):
+        return u'%s(%s)' % (self.field_name, self.field)
+
