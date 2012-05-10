@@ -22,5 +22,5 @@ def get_choices_field_list():
     '''
     Returns list of available fields for choices in :class:`dynamicforms.models.Field`
     '''
-    return [(path, name) for path, name, default in get_choices_field_list()]
+    return [(path, name) for path, name, defaults in get_choices_field_list()]
 
