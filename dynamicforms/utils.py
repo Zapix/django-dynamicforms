@@ -47,8 +47,9 @@ def get_field_defaults(field_path):
     Returns defaults by field_path
     else raise exception no field with this path
     '''
-    fields_info = dict(build_available_field_list())
+    field_list = build_available_field_list()
+    info = dict(((path, defaults) for path, name, defaults in field_list))
     try:
-        return fields_info[field_path][2]
+        return info[field_path]
     except KeyError:
         raise FieldDidNotRegister(field_path)

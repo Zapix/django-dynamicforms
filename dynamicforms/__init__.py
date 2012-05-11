@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from django import forms
+from django import forms as djforms
 
 from dynamicforms import models
 from dynamicforms.utils import get_field_class, get_field_defaults
@@ -25,10 +25,10 @@ class FormsLazyObject(object):
 
         try:
             form_instance = models.DynamicForm.objects.get(name=name)
-            form_data = { '__doc__': form_instance.desciption}
+            form_data = { '__doc__': form_instance.description}
 
             #generating fields for form
-            for field_obj in form_instance.fields:
+            for field_obj in form_instance.fields.all():
                 field_class = get_field_class(field_obj.field)
                 defaults = get_field_defaults(field_obj.field)
                 form_data[field_obj.field_name] = field_class(
@@ -36,9 +36,12 @@ class FormsLazyObject(object):
                                                        required=True,
                                                        **defaults
                                                        )
+            
+            metaclass = djforms.Form.__metaclass__
 
-            self._forms[form_instance.name] = type(form_instance.name,
-                                                   (forms.Form,),
+            self._forms[form_instance.name] = metaclass(
+                                                   str(form_instance.name),
+                                                   (djforms.Form,),
                                                    form_data)
             return self._forms[form_instance.name]
 

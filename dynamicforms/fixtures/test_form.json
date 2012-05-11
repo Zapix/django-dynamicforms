@@ -1,0 +1,40 @@
+[
+    {
+        "pk": 1, 
+        "model": "dynamicforms.dynamicform", 
+        "fields": {
+            "name": "PeopleForm", 
+            "description": "Form for testing our application"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "dynamicforms.dynamicfield", 
+        "fields": {
+            "field": "django.forms.CharField", 
+            "field_name": "name", 
+            "form": 1, 
+            "label": "\u0418\u043c\u044f"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "dynamicforms.dynamicfield", 
+        "fields": {
+            "field": "django.forms.IntegerField", 
+            "field_name": "age", 
+            "form": 1, 
+            "label": "\u0412\u043e\u0437\u0440\u0430\u0441\u0442\u0430"
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "dynamicforms.dynamicfield", 
+        "fields": {
+            "field": "django.forms.BooleanField", 
+            "field_name": "alive", 
+            "form": 1, 
+            "label": "\u0416\u0438\u0432\u043e\u0439"
+        }
+    }
+]
