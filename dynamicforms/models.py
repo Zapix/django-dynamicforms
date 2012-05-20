@@ -37,6 +37,7 @@ class DynamicField(models.Model):
                      verbose_name=_('Field name'),
                      help_text=_('Only in English and in lowercase'))
     label = models.CharField(max_length=250, verbose_name=_('Label'))
+    help_text = models.TextField(verbose_name=_('Help text'), blank=True)
 
     class Meta:
         verbose_name = _('Dynamic field')

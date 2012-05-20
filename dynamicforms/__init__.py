@@ -31,12 +31,11 @@ class FormsLazyObject(object):
             for field_obj in form_instance.fields.all():
                 field_class = get_field_class(field_obj.field)
                 defaults = get_field_defaults(field_obj.field)
-                form_data[field_obj.field_name] = field_class(
-                                                       label=field_obj.label,
-                                                       required=True,
-                                                       **defaults
-                                                       )
-            
+                field = field_class(label=field_obj.label,
+                                    help_text=field_obj.help_text,
+                                    required=True,
+                                    **defaults)
+                form_data[field_obj.field_name] = field
             metaclass = djforms.Form.__metaclass__
 
             self._forms[form_instance.name] = metaclass(
