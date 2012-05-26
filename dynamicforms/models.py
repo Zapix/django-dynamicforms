@@ -46,3 +46,4 @@ class DynamicField(models.Model):
     def __unicode__(self):
         return u'%s(%s)' % (self.field_name, self.field)
 
+from dynamicforms import signal_receivers
