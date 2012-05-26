@@ -12,5 +12,5 @@ def dynamic_form_post_save_handler(sender, instance, created, **kwargs):
     If it's not new form. update it
     '''
     if not created:
-        forms._update(instance.name)
+        forms._clear(instance.name)
 
