@@ -10,21 +10,16 @@ class FormsLazyObject(object):
     def __init__(self):
         self._forms = {}
 
-    def __getattr__(self, name):
+    def _build_form(self, form_name):
         '''
-        Returns form class:
-        Checks have we build asking form class.
-        If we build return this class.
-        Checks have we got info about this class
-        on db.
-        If yes we build form class and return in.
-        Else raise excpetion that form DoesNotExist
+        Build's form
+        Tries to find info about form on db.
+        If info haven't been found raises :exception:`exceptions.FormDoesNotExist`
+        Else builds form by data that get's form db
+        :return: Builded form
         '''
-        if name in self._forms:
-            return self._forms[name]
-
         try:
-            form_instance = models.DynamicForm.objects.get(name=name)
+            form_instance = models.DynamicForm.objects.get(name=form_name)
             form_data = { '__doc__': form_instance.description}
 
             #generating fields for form
@@ -38,20 +33,41 @@ class FormsLazyObject(object):
                 form_data[field_obj.field_name] = field
             metaclass = djforms.Form.__metaclass__
 
-            self._forms[form_instance.name] = metaclass(
-                                                   str(form_instance.name),
-                                                   (djforms.Form,),
-                                                   form_data)
-            return self._forms[form_instance.name]
+            new_form = metaclass(str(form_instance.name),
+                                 (djforms.Form,),
+                                 form_data)
+            return new_form
 
         except models.DynamicForm.DoesNotExist:
-            raise FormDoesNotExist(name)
-        
-        def __setattr__(self, name, value):
-            pass
-        
-        def __delattr__(self, name):
-            pass
+            raise FormDoesNotExist(form_name)
+
+    def __getattr__(self, name):
+        '''
+        Returns form class:
+        Checks have we build asking form class.
+        If we build return this class.
+        Checks have we got info about this class
+        on db.
+        If yes we build form class and return in.
+        Else raise excpetion that form DoesNotExist
+        '''
+        if not name in self._forms:
+            self._forms[name] = self._build_form(name)
+        return self._forms[name]
+
+
+    def __setattr__(self, name, value):
+        pass
+
+    def __delattr__(self, name):
+        pass
+
+    def _update(self, form_name):
+        '''
+        Updates exist and have accessed form
+        '''
+        if form_name in self._forms:
+            self._forms[form_name] = self._build_form(form_name)
 
 forms = FormsLazyObject()
 
