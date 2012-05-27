@@ -22,14 +22,12 @@ def build_available_field_list():
             ('django.forms.IntegerField', _('Integer field'), {}),
             ('django.forms.BooleanField', _('Boolean field'), {})]
 
-
 def get_choices_field_list():
     '''
     Returns list of available fields for choices in :class:`dynamicforms.models.Field`
     '''
     return [(path, name)
             for path, name, defaults in build_available_field_list()]
-
 
 def get_field_class(field_path):
     '''
