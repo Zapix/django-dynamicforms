@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
-from django import forms 
+from django import forms
+
 from dynamicforms.utils import get_field_class, get_field_defaults
+
 
 def build_form(form_instance):
     '''
@@ -8,7 +10,7 @@ def build_form(form_instance):
     Else builds form by data that get's form db
     :return: Builded form
     '''
-    form_data = { '__doc__': form_instance.description}
+    form_data = {'__doc__': form_instance.description}
 
     #generating fields for form
     for field_obj in form_instance.fields.all():

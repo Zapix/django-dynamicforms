@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+
 class FormDoesNotExist(Exception):
     '''
     Raise when form haven't been founded in db
@@ -22,4 +23,3 @@ class FieldDidNotRegister(Exception):
 
     def __str__(self):
         return 'Field(%s) haven\'t been registered' % self.value
-

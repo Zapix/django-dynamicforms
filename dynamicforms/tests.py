@@ -17,13 +17,15 @@ class SimpleTest(TestCase):
         Tests that 1 + 1 always equals 2.
         """
         self.assertEqual(1 + 1, 2)
-    
+
     def test_all_true(self):
         self.assertTrue([True, True, True])
 
 
 def ImportTest(TestCase):
-
+    '''
+    Test sub class
+    '''
     def test_import_charfield(self):
         field_class = get_field_class('django.forms.CharField')
         self.assertTrue(issubclass(field_class, CharField))
@@ -41,7 +43,6 @@ class DynamicFormTest(TestCase):
     def test_get_class(self):
         form_class = self.get_form_class()
         self.assertTrue(issubclass(form_class, Form))
-    
 
     def test_valid_data(self):
         form_class = self.get_form_class()
@@ -52,4 +53,3 @@ class DynamicFormTest(TestCase):
         form_class = self.get_form_class()
         form = form_class({'name': 'Zapix'})
         self.assertTrue(form.is_valid() == False)
-

@@ -2,13 +2,10 @@
 from dynamicforms.factory import build_form
 from dynamicforms.helpers import get_form_info
 
+
 class FormsLazyObject(object):
 
     _forms = {}
-
-
-
-
 
     def __getattr__(self, name):
         '''
@@ -31,7 +28,6 @@ class FormsLazyObject(object):
             self._forms[name] = build_form(form_instance)
         return self._forms[name]
 
-
     def __setattr__(self, name, value):
         pass
 
@@ -49,6 +45,7 @@ class FormsLazyObject(object):
         '''
         if form_name in self._forms:
             del self._forms[form_name]
+
 
 forms = FormsLazyObject()
 

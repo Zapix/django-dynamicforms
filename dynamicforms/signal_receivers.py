@@ -18,4 +18,3 @@ def dynamic_form_post_save_handler(sender, instance, created, **kwargs):
 @receiver(post_delete, sender=DynamicForm)
 def dynamic_form_post_delete_handler(sender, instance, **kwargs):
     forms._clear(instance.name)
-
