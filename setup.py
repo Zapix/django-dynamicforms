@@ -6,7 +6,7 @@ def read(fname):
 
 setup(
     name='django-dynamicforms',
-    version='0.0.6',
+    version='0.0.7',
     author='Aleksandr Aibulatov',
     author_email='zap.aibulatov@gmail.com',
     description=('Django application for creating dynmaicforms'),

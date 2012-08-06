@@ -2,6 +2,7 @@
 import sys
 
 from django.utils.translation import ugettext_lazy as _
+from django.forms import TextInput
 
 from dynamicforms.exceptions import FieldDidNotRegister
 
@@ -20,7 +21,9 @@ def build_available_field_list():
     '''
     return [('django.forms.CharField', _('Char field'), {'max_length': 50}),
             ('django.forms.IntegerField', _('Integer field'), {}),
-            ('django.forms.BooleanField', _('Boolean field'), {})]
+            ('django.forms.BooleanField', _('Boolean field'), {}),
+            ('django.forms.CharField', _('Street field'), {'max_length': 100,
+                          'widget': TextInput(attrs={'class': 'street'})}),]
 
 
 def get_choices_field_list():
